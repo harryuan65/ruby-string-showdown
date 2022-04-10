@@ -1,19 +1,19 @@
-require_relative "../test_helper"
+require "benchmark"
+# standard:disable Style/StringLiterals(Standard)
+Benchmark.bmbm do |x|
+  puts "The Test Test (should always yield significant difference)"
+  x.report "Fast" do
+    1000000.times do
+      'Foo'
+    end
+  end
 
-test = Test.new("The Test Test (should always yield significant difference)", runs: 100)
-
-test.add_variant "Fast" do
-  1000000.times do
-    "Foo"
+  x.report "Slow" do
+    1000000.times do
+      "Foobar"
+    end
   end
 end
+# standard:enable Style/StringLiterals(Standard)
 
-test.add_variant "Slow" do
-  1000000.times do
-    "Foobar"
-  end
-end
-
-test.report
-
-# Results: https://s3.amazonaws.com/kurtzkloud.com/ss/Screen_Shot_2015-01-12_at_10.47.24.png
+__END__

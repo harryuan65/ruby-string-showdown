@@ -1,6 +1,3 @@
-ruby '2.2.0'
+ruby "3.0.3"
 
-source 'https://rubygems.org'
-
-gem 'descriptive_statistics'
-gem 'statsample'
+source "https://rubygems.org"

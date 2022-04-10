@@ -1,10 +1,12 @@
-require_relative "../test_helper"
+# frozen_string_literal: true
 
-test = Test.new("Single vs Double Quoted Strings (Huge Instantiation)", runs: 100)
+require "benchmark"
 
-test.add_variant "Single Quoted" do
-  1000000.times do
-    'There is one all-time greatest moment in the history of sports,
+Benchmark.bmbm do |x|
+  puts "Single vs Double Quoted Strings (Huge Instantiation)"
+  x.report "Single Quoted" do
+    1000000.times do
+      'There is one all-time greatest moment in the history of sports,
 
             and it happened in the 1932 World Series.
 
@@ -2691,12 +2693,12 @@ test.add_variant "Single Quoted" do
                 [ Cheering Continues ]
 
                 [ Cheering Continues ]'
+    end
   end
-end
 
-test.add_variant "Double Quoted" do
-  1000000.times do
-    "There is one all-time greatest moment in the history of sports,
+  x.report "Double Quoted" do
+    1000000.times do
+      "There is one all-time greatest moment in the history of sports,
 
             and it happened in the 1932 World Series.
 
@@ -5383,9 +5385,18 @@ test.add_variant "Double Quoted" do
                 [ Cheering Continues ]
 
                 [ Cheering Continues ]"
+    end
   end
 end
 
-test.report
+__END__
 
-# Results: https://s3.amazonaws.com/kurtzkloud.com/ss/Screen_Shot_2015-01-12_at_11.01.26.png
+Single vs Double Quoted Strings (Huge Instantiation)
+Rehearsal -------------------------------------------------
+Single Quoted   0.023682   0.000070   0.023752 (  0.023789)
+Double Quoted   0.022494   0.000160   0.022654 (  0.022653)
+---------------------------------------- total: 0.046406sec
+
+                    user     system      total        real
+Single Quoted   0.022542   0.000118   0.022660 (  0.022667)
+Double Quoted   0.022346   0.000134   0.022480 (  0.022492)
